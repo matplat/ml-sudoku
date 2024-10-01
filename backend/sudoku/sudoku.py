@@ -94,42 +94,6 @@ class Sudoku(SudokuBase):
             self.log_error("No solution was found")
         self.show(fields)
 
-        # guessed_values = {}
-        #
-        # for field in self.fields:
-        #     if not field.value:
-        #         possible_values, row, column, square = self._check_field(field)
-        #         if not possible_values:
-        #             self._forward_propagate(row, column, square)
-        #
-        # while not all(field.value for field in self.fields):
-        #     minimal_options_field = sorted(self.fields, key=lambda f: len(f.possible_values()))[0]
-        #     value = FieldValue(list(minimal_options_field.possible_values)[0])
-        #     guessed_values[minimal_options_field] = value
-        #     minimal_options_field.guess(value)
-        #
-        # self.show()
-
-    # def _check_field(self, field: Field):
-    #     square = self.squares[SquareLocation.from_position(field.x_pos, field.y_pos)]
-    #     row = self.rows[field.y_pos]
-    #     column = self.columns[field.x_pos]
-    #     return field.calculate_possible_values(square.get_fields_values(), row.get_fields_values(),
-    #                                            column.get_fields_values(), fill=True), row, column, square
-    #
-    # def _forward_propagate(self, row, column, square):
-    #     for r_field in row.fields:
-    #         self._check_field(r_field)
-    #     for c_field in column.fields:
-    #         self._check_field(c_field)
-    #     for s_field in square.fields:
-    #         self._check_field(s_field)
-
-    # def check_validity(self):
-    #     if any(not field.value and len(field.possible_values) == 0 for field in self.fields):
-    #         return False
-    #     return True
-
     def __call__(self):
         """
         :return:
