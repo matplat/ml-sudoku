@@ -5,8 +5,10 @@ from backend.sudoku.field import Field
 
 
 class Line(SudokuContainer):
-    """
+    """ A representation of a container visible as line, either vertical (column) or horizontal (row)
 
+    Attributes:
+        number (int): a distinctive number of a line (it's position)
     """
     def __init__(self, number: int = None, logger_name: str = "Line", logging_level: int = 10):
         super().__init__(logger_name, logging_level)
@@ -17,18 +19,10 @@ class Line(SudokuContainer):
 
 
 class Row(Line):
-    """
-
-    """
     def __init__(self, number: Position, logger_name: str = "Row", logging_level: int = 10):
         super().__init__(number, f"{logger_name}_{number}", logging_level)
 
     def add(self, field: Field):
-        """
-
-        :param field:
-        :return:
-        """
         if field.y_pos != self.number:
             self.log_warning(f"{field} in row {field.y_pos} can't be added to row {self.number}")
             return
@@ -37,19 +31,10 @@ class Row(Line):
 
 
 class Column(Line):
-    """
-
-    """
     def __init__(self, number: Position, logger_name: str = "Column", logging_level: int = 10):
         super().__init__(number, f"{logger_name}_{number}", logging_level)
-        self.number = number
 
     def add(self, field: Field):
-        """
-
-        :param field:
-        :return:
-        """
         if field.x_pos != self.number:
             self.log_warning(f"{field} in column {field.x_pos} can't be added to column {self.number}")
             return
