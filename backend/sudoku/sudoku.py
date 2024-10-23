@@ -35,8 +35,8 @@ class Sudoku(SudokuBase):
     def setup(self, initial_setup: str):
         """ Fill in known starting fields and limit their possible values, based only on what's known
 
-        :param initial_setup:
-        :return:
+        Args:
+            initial_setup (str): sudoku board string with values to set
         """
         initial_setup = initial_setup.strip()
         initial_setup = re.sub(r"\s", "", initial_setup)
@@ -54,8 +54,11 @@ class Sudoku(SudokuBase):
     def field(self, *args: int | Position | Tuple[Position, Position] | Tuple[int, int]) -> Field:
         """ Return a single field of given index or in certain position
 
-        :param args:
-        :return:
+        Args:
+            args: field position as ints or tuple of ints
+
+        Returns:
+            (Field): a field at given coordinates
         """
         if len(args) == 1:
             if isinstance(args[0], int) or isinstance(args[0], Position):
@@ -71,20 +74,28 @@ class Sudoku(SudokuBase):
     def row(self, position: int | Position) -> Row:
         """ Return a single row on a given position
 
-        :param position:
-        :return:
+        Args:
+            position (int | Position): position of the row
+
+        Returns:
+            (Row): a Row at given position
         """
         return self.rows[position]
 
     def column(self, position: int | Position) -> Column:
         """ Return a single column on a given position
 
-        :param position:
-        :return:
+        Args:
+            position (int | Position): position of the column
+
+        Returns:
+            (Column): a Column at given position
         """
         return self.columns[position]
 
     def solve(self):
+        """ Run a solving algorithm
+        """
         solver = ClassicSolver()
         solution, fields = solver.solve(self.fields)
 
@@ -95,13 +106,12 @@ class Sudoku(SudokuBase):
         self.show(fields)
 
     def __call__(self):
-        """
-        :return:
+        """ Return a list of fields
         """
         return [str(field) for field in self.fields]
 
     def show(self, fields: List[Field] = None):
-        """
+        """ Print a sudoku
         """
         show_fields = fields if fields else self.fields
         s = "-" * 33
@@ -124,7 +134,12 @@ class Sudoku(SudokuBase):
         s += "|\n" + "-" * 33
         print(s)
 
-    def stringify(self):
+    def stringify(self) -> str:
+        """ Return a sudoku as string
+
+        Returns:
+            (str): sudoku string
+        """
         return "".join([str(field) for field in self.fields])
 
 
